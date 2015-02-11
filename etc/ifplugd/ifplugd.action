@@ -1,0 +1,32 @@
+#!/bin/bash
+
+systemctl is-active --quiet netctl-auto@wlo1.service
+WLAN_ACTIVE=$?
+echo "Wlan = $WLAN_ACTIVE"
+echo "User is `id -u`"
+
+case "$2" in
+	up)
+		if [ $WLAN_ACTIVE -eq 0 ]; then
+			systemctl stop netctl-auto@wlo1.service
+			RET=$?
+			echo "Value returned = $RET"
+			routef
+			echo "netctl-auto stopped"
+		fi
+		dhcpcd -4 $1
+		#ip addr add 192.168.1.101/24 broadcast 192.168.1.255 dev $1
+		#ip route add default via 192.168.1.1
+		#echo "nameserver 192.168.1.1" > /etc/resolv.conf
+		echo "Ip address set"
+		;;
+
+	down)
+		#ip addr flush dev $1
+		dhcpcd --release $1
+		if [ $WLAN_ACTIVE -ne 0 ]; then
+			systemctl start netctl-auto@wlo1.service
+			echo "netctl-auto started"
+		fi
+		;;
+esac

@@ -1,0 +1,8 @@
+#!/bin/bash
+
+# Disable TouchPad
+# You can enable it back by executing the inverse command
+# Link this file into ~/.kde/Autostart
+
+#xinput --enable "SynPS/2 Synaptics TouchPad"
+xinput --disable "SynPS/2 Synaptics TouchPad"

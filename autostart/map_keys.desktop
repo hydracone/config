@@ -1,0 +1,7 @@
+[Desktop Entry]
+Type=Application
+Exec=/home/ronnie/.local/bin/map_keys
+Hidden=false
+X-GNOME-Autostart-enabled=true
+Name=Change Key Mappings
+Comment=Mapping CapsLock to the letter J

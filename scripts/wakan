@@ -1,0 +1,26 @@
+#
+#	Script to start WaKan from the NTFS partition
+#	Author : Ronnie.P.Thomas
+#	Version : v1.2
+#
+
+Wakan_Exe='Program Files (x86)/Wakan'
+Wakan_Part='/dev/sda2'
+
+if [ -z "`df | grep $Wakan_Part`" ]
+then
+	echo "$Wakan_Part is not mounted...Please mount the partition!"
+	udisksctl mount --block-device /dev/sda2 > /dev/null && echo "Partition successfully mounted!.."
+else
+	echo "$Wakan_Part is mounted"
+fi
+
+Mount_Point=`grep $Wakan_Part /proc/mounts | cut -d " " -f 2`
+
+echo "Mount Point : $Mount_Point"
+cd "$Mount_Point/$Wakan_Exe"
+
+#Executing wakan.exe
+echo "Executing Wakan.."
+wine wakan.exe > /dev/null 2>&1
+echo "Exiting.."

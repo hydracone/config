@@ -1,0 +1,1 @@
+test -s ~/.Xmodmap && xmodmap ~/.Xmodmap

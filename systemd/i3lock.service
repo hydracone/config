@@ -1,0 +1,12 @@
+[Unit]
+Description=i3 Lock Screen
+Before=sleep.target
+
+[Service]
+Environment=DISPLAY=:0
+User=ronnie
+Type=forking
+ExecStart=/usr/local/bin/lock
+
+[Install]
+WantedBy=sleep.target

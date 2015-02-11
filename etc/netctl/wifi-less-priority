@@ -1,0 +1,14 @@
+Description='Wireless connection with less priority'
+Interface=wlo1
+Connection=wireless
+Security=wpa-configsection
+IP=dhcp
+WPAConfigSection=(
+    'ssid="some-ssid"'
+    'key_mgmt=WPA-EAP'
+    'eap=PEAP'
+    'identity="identity"'
+    'password="password"'
+    'priority=5'
+    'phase2="auth=MSCHAPv2"'
+)

@@ -1,0 +1,86 @@
+"Setting up Pathogen
+execute pathogen#infect()
+
+"Setting Line Numbers
+set number
+
+"Setting Syntax Colors
+syntax on
+
+"Setting Highlight Colors
+set hlsearch
+
+"Setting incremental search
+set incsearch
+
+"Insert space characters when tab is pressed
+"NOTE: After researching a little on this topic, I feel
+"      it would be better if you tabs instead of spaces
+"      as people have different preferences regarding their 
+"      indentation size and they could set it as they want
+"      without changing the code base.
+"NOTE: No matter what happens, do not mix tabs and spaces in
+"      your source file, like you've done over here.
+"      Please!! I beg you!
+"      (Can't see here, because expandtab was on then!!)
+"set expandtab
+
+"Setting expandtab specifically for Python files
+autocmd Filetype python set expandtab
+
+"Number of space characters used when tab is pressed
+"Not really needed, since I'm only editing in INSERT mode
+"But if you really think about it.. tabs come when tabstop and softtabstop match,
+"so it's better to set it, else it might use spaces (check :help softtabstop)
+set tabstop=4
+
+"Number of space characters used for indentation
+set shiftwidth=8
+
+"Copy indentation from previous line
+set autoindent
+
+"Grouping space characters as a tab (in the INSERT mode!!), so 
+"that backspace works correctly, and deletes 4 spaces at once, 
+"instead of 1 space each time
+"Basically softtabs comes over hardtabs
+"Eg:- Let tabstop=4 and softtab=8
+"	  So, when you hit the tab key in the INSERT mode, vim will move
+"	  8 spaces at once, which seems like 1 whole tab(the SOFT tab, that is..),
+"	  but if you cat -A the file you will see 2 '^I' characters in the
+"	  file(2 whole HARD tabs!!)
+set softtabstop=4
+
+"Allows saving of files as sudo if you forget to open file as root
+cmap w!! w !sudo tee > /dev/null %
+
+"Setting a better color scheme.... So much better
+:color ron
+
+"Open TagBar on the left side
+let g:tagbar_left = 1
+
+"Allowing unsaved buffers to hide in background
+set hidden
+
+"Always show the status bar
+set laststatus=2
+
+"Setting powerline fonts for status bar
+let g:airline_powerline_fonts=1
+
+"if !exists('g:airline_symbols')
+"	let g:airline_symbols = {}
+"endif
+
+"let g:airline_left_sep = ' '
+"let g:airline_left_sep = '▶'
+"let g:airline_left_sep = '»'
+"let g:airline_right_sep = ' '
+"let g:airline_right_sep = '◀'
+"let g:airline_right_sep = '«'
+
+"Enabling the upper powerline tab
+let g:airline#extensions#tabline#enabled = 1
+"let g:airline#extensions#tabline#left_sep = ' '
+"let g:airline#extensions#tabline#left_alt_sep = '|'
