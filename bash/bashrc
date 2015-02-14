@@ -146,4 +146,9 @@ export EDITOR=vim
 #export BUILDDIR=~/Builds/aur
 
 #Setting the 'command not found' hook from pkgfile
-source /usr/share/doc/pkgfile/command-not-found.bash
+if [ -f /bin/pkgfile ]; then
+	source /usr/share/doc/pkgfile/command-not-found.bash
+fi
+
+#Setting autocd for bash
+shopt -s autocd
