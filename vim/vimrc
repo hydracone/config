@@ -13,6 +13,9 @@ set hlsearch
 "Setting incremental search
 set incsearch
 
+"Wrapping searches
+set wrapscan
+
 "Insert space characters when tab is pressed
 "NOTE: After researching a little on this topic, I feel
 "      it would be better if you tabs instead of spaces

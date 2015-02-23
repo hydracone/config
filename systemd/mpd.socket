@@ -2,7 +2,7 @@
 Description=Music Player Daemon Socket
 
 [Socket]
-ListenStream=5241
+ListenStream=0.0.0.0:5241
 Backlog=5
 KeepAlive=true
 PassCredentials=true
