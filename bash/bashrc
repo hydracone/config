@@ -85,7 +85,7 @@ BCyan='\e[1;36m'        # Cyan
 BWhite='\e[1;37m'       # White
 
 #Custom Prompt
-export PS1="\[${BGreen}\]\n\u@\h:\W \$ \[${BWhite}\]"
+export PS1="\[${BGreen}\]\n\u@\h:\W \$ \[${White}\]"
 
 #Aliases
 alias cls="clear"
@@ -123,7 +123,7 @@ alias et="xinput --enable 'SynPS/2 Synaptics TouchPad'"
 alias dt="xinput --disable 'SynPS/2 Synaptics TouchPad'"
 
 #Setting the default libvirt URI
-#export LIBVIRT_DEFAULT_URI=qemu:///system
+export LIBVIRT_DEFAULT_URI=qemu:///system
 
 #Setting a default Picture directory for Gnome 3
 #export PICTURES="/home/ronnie/Pictures"
@@ -137,7 +137,7 @@ alias dt="xinput --disable 'SynPS/2 Synaptics TouchPad'"
 alias mu="reflector --verbose -l 20 -p http --sort rate --save /etc/pacman.d/mirrorlist"
 
 #Raspberry Pi SSH Login
-alias rpilog="ssh -p 6253 ronnie@RonniePi.local"
+alias rpilog="ssh ronnie@RonniePi.local"
 
 #Setting default editor
 export EDITOR=vim
@@ -152,3 +152,17 @@ fi
 
 #Setting autocd for bash
 shopt -s autocd
+
+#Function to generated random strings
+# Pass length of password as argument
+genpasswd() {
+	local l=$1
+	[ "$l" == "" ] && l=16
+	tr -dc A-Za-z0-9_ < /dev/urandom | head -c ${l} | xargs
+}
+
+#Resizing the serial terminal
+tty | grep -q "ttyS"
+if [ $? -eq 0 ] && [ -f /bin/resize ]; then
+	export PROMPT_COMMAND="resize > /dev/null"
+fi
