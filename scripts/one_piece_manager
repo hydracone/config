@@ -4,9 +4,9 @@ NEW_FILE_NAME="One Piece Episode "
 EXTENSION=".mp4"
 NEW_FOLDER="/home/ronnie/Videos/One Piece/"
 
-for x in `find /home/ronnie/Videos -name Watch_One_Piece*` 
+for x in `find /home/ronnie/Videos -name "*Watch_One_Piece*"` 
 do
-	num=`echo $x | grep -o _[[:digit:]]*_ | sed 's/_//g'`
+	num=`echo $x | grep -o _[[:digit:]]*_ | sed 's/_//g'` | head -n 1
 	mv -v "$x" "$NEW_FOLDER$NEW_FILE_NAME$num$EXTENSION"
 	#echo "$NEW_FOLDER$NEW_FILE_NAME$num$EXTENSION"
 done
