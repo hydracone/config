@@ -53,16 +53,32 @@ BBlue='\e[1;34m'        # Blue
 BPurple='\e[1;35m'      # Purple
 BCyan='\e[1;36m'        # Cyan
 BWhite='\e[1;37m'       # White
+Reset='\e[m'			# Reset Color
 
-#Custom Prompt
-export PS1="\[${BGreen}\]\n\u@\h:\W \$ \[${White}\]"
+#Settting the prompt 
+PS1="\[${BGreen}\]\n\u@\h : [\[${BPurple}\]$(tty)\[${BGreen}\]]-[\[${BBlue}\]\w\[${BGreen}\]]\n\$ \[${Reset}\]"; 
+
+#Alternate prompt (Changes color with battery status)
+#PROMPT_COMMAND='
+#PS1="\[${BGreen}\]\n\u@\h : [\[${BPurple}\]$(tty)\[${BGreen}\]]-[\[${BBlue}\]\w\[${BGreen}\]]\n\$ \[${Reset}\]"; 
+#if [ -f /sys/class/power_supply/BAT0/capacity ]; then 
+#	CAP=`cat /sys/class/power_supply/BAT0/capacity`; 
+#	if [[ $CAP -le 20 ]]; then 
+#		PS1="\[${BRed}\]\n\u@\h : [\[${BPurple}\]$(tty)\[${BRed}\]]-[\[${BBlue}\]\w\[${BRed}\]]\n\$ \[${Reset}\]";
+#	elif [[ $CAP -le 40 ]]; then 
+#		PS1="\[${BYellow}\]\n\u@\h : [\[${BPurple}\]$(tty)\[${BYellow}\]]-[\[${BBlue}\]\w\[${BYellow}\]]\n\$ \[${Reset}\]";
+#	fi; 
+#fi;'
 
 #Aliases
-alias cls="clear"
+alias clear='clear;echo -e "\nCurrently logged in as ${BBlue}$(whoami)${Reset} : \
+PWD=${BCyan}$(pwd)${Reset} : TTY=${BCyan}$(tty)${Reset}"'
+alias cls='clear'
 alias ls="ls --color"
 alias syslog="journalctl"
 #alias up="sudo yum update"
 alias hibernate="systemctl hibernate"
+alias android-studio="~/Android/android-studio/bin/studio.sh"
 
 #Aliasing sudo to allow use with aliases! 
 alias sudo="sudo "
@@ -72,9 +88,6 @@ alias rm="rm -i"
 
 #Android command line tools
 export PATH="$PATH:~/.local/bin:~/Android/sdk/tools:~/Android/sdk/platform-tools"
-#Adding Genymotion and Android-Studio aliases
-alias android-studio="~/Android/android-studio/bin/studio.sh"
-#alias genymotion="~/Android/genymotion/genymotion"
 
 #Use this to enable and disable the touchpad
 alias et="xinput --enable 'SynPS/2 Synaptics TouchPad'"
@@ -82,11 +95,6 @@ alias dt="xinput --disable 'SynPS/2 Synaptics TouchPad'"
 
 #Setting the default libvirt URI
 export LIBVIRT_DEFAULT_URI=qemu:///system
-
-#IBus Settings
-#export GTK_IM_MODULE=ibus
-#export XMODIFIERS=@im=ibus
-#export QT_IM_MODULE=ibus
 
 #Updating pacman mirrorlist
 alias mu="reflector --verbose -l 20 -p http --sort rate --save /etc/pacman.d/mirrorlist"
@@ -119,5 +127,18 @@ genpasswd() {
 #Resizing the serial terminal
 tty | grep -q "ttyS"
 if [ $? -eq 0 ] && [ -f /bin/resize ]; then
-	export PROMPT_COMMAND="resize > /dev/null"
+	PROMPT_COMMAND="${PROMPT_COMMAND}resize > /dev/null;"
 fi
+
+#Setting colored man pages
+man() {
+	env \
+	LESS_TERMCAP_mb=$'\e[1;31m' \
+	LESS_TERMCAP_md=$'\e[1;31m' \
+	LESS_TERMCAP_me=$'\e[0m' \
+	LESS_TERMCAP_se=$'\e[0m' \
+	LESS_TERMCAP_so=$'\e[1;44;33m' \
+	LESS_TERMCAP_ue=$'\e[0m' \
+	LESS_TERMCAP_us=$'\e[1;32m' \
+	man "$@"
+}
