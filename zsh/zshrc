@@ -21,10 +21,8 @@ if [ -x /usr/bin/dircolors ]; then
 fi
 
 #Setting the prompt
+autoload -U colors && colors
 source $ZCONFDIR/zsh-prompt.zsh
-
-#Zsh completion configuration
-source $ZCONFDIR/completion.zsh
 
 #Setting PATH
 #	typeset -U is used to ensure unique entries in the
@@ -39,7 +37,9 @@ if [[ -x /bin/pkgfile ]]; then
 fi
 
 #Aliases
-alias cls='clear;print "\nCurrently logged in as $(whoami) : PWD=$(pwd) : TTY = $(tty)"'
+alias clear='clear;echo -e "\nCurrently logged in as $fg_bold[blue]$(whoami)$reset_color : \
+PWD=$fg_bold[cyan]$(pwd)$reset_color : TTY=$fg_bold[cyan]$(tty)$reset_color"'
+alias cls='clear'
 alias ls="ls --color=auto"
 alias syslog="journalctl"
 #alias up="sudo yum update"

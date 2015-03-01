@@ -20,7 +20,7 @@ get_space () {
   echo $_SPACES
 }
 
-autoload -U colors && colors
+#autoload -U colors && colors
 LEFT="%{$fg_bold[green]%}%n@%m : [%{$fg_bold[blue]%}%d%{$fg_bold[green]%}]"
 RIGHT="%{$fg_bold[green]%}[%{$fg_bold[magenta]%}%l : %D{%a,%T}%{$fg_bold[green]%}]"
 
@@ -33,7 +33,7 @@ prompt_precmd () {
 #Using conditional expression of the form %(X.true-text.false-text) 
 setopt prompt_subst
 PROMPT="%(?.%{$fg_bold[green]%}$ .%{$fg_no_bold[red]%}$ )%{$reset_color%}"
-RPROMPT="%{$fg_no_bold[red]%}%(?..[%? :(])%{$reset_color%}"
+RPROMPT="%{$fg_no_bold[red]%}%(?..[%?] :()%{$reset_color%}"
 
 autoload -U add-zsh-hook
 add-zsh-hook precmd prompt_precmd
