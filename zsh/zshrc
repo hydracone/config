@@ -1,0 +1,85 @@
+# Lines configured by zsh-newuser-install
+HISTFILE=~/.zsh_history
+HISTSIZE=1000
+SAVEHIST=1000
+setopt appendhistory autocd
+bindkey -e
+# End of lines configured by zsh-newuser-install
+# The following lines were added by compinstall
+zstyle :compinstall filename '/home/ronnie/.zshrc'
+
+#autoload -Uz compinit
+#compinit
+# End of lines added by compinstall
+
+#Setting zsh configuration file directory
+ZCONFDIR=~/.zsh/
+
+#Setting up color support for ls
+if [ -x /usr/bin/dircolors ]; then
+    test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
+fi
+
+#Setting the prompt
+source $ZCONFDIR/zsh-prompt.zsh
+
+#Zsh completion configuration
+source $ZCONFDIR/completion.zsh
+
+#Setting PATH
+#	typeset -U is used to ensure unique entries in the
+#	path array. The path array automatically fills up 
+#	the PATH parameter.
+typeset -U path
+path=($path ~/.local/bin ~/Android/sdk/tools ~/Android/sdk/platform-tools)
+
+#Setting pkgfile's "command-not-found" handler
+if [[ -x /bin/pkgfile ]]; then
+	source /usr/share/doc/pkgfile/command-not-found.zsh
+fi
+
+#Aliases
+alias cls='clear;print "\nCurrently logged in as $(whoami) : PWD=$(pwd) : TTY = $(tty)"'
+alias ls="ls --color=auto"
+alias syslog="journalctl"
+#alias up="sudo yum update"
+alias hibernate="systemctl hibernate"
+alias android-studio="~/Android/android-studio/bin/studio.sh"
+
+#Aliasing sudo to allow use with aliases! 
+alias sudo="sudo "
+
+#I'm just too careless!!
+alias rm="rm -i"
+
+#Use this to enable and disable the touchpad
+alias et="xinput --enable 'SynPS/2 Synaptics TouchPad'"
+alias dt="xinput --disable 'SynPS/2 Synaptics TouchPad'"
+
+#Setting the default libvirt URI
+export LIBVIRT_DEFAULT_URI=qemu:///system
+
+#Updating pacman mirrorlist
+alias mu="reflector --verbose -l 20 -p http --sort rate --save /etc/pacman.d/mirrorlist"
+
+#Raspberry Pi SSH Login
+alias rpilog="ssh ronnie@RonniePi.local"
+
+#Setting default editor
+export EDITOR=vim
+
+#Setting the build directory for AUR packages
+#export BUILDDIR=~/Builds/aur
+
+#Setting colored man pages
+man() {
+	env \
+	LESS_TERMCAP_mb=$'\e[1;31m' \
+	LESS_TERMCAP_md=$'\e[1;31m' \
+	LESS_TERMCAP_me=$'\e[0m' \
+	LESS_TERMCAP_se=$'\e[0m' \
+	LESS_TERMCAP_so=$'\e[1;44;33m' \
+	LESS_TERMCAP_ue=$'\e[0m' \
+	LESS_TERMCAP_us=$'\e[1;32m' \
+	man "$@"
+}
