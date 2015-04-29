@@ -1,0 +1,28 @@
+#!/bin/zsh
+
+#Reset the system on exit
+TRAPINT() {
+	#Starting the local DNS caching server
+	sudo systemctl start pdnsd
+
+	#Resetting resolv.conf
+	sudo resolvconf -u
+
+	print "System returned to original state"
+}
+
+#First stop the local DNS caching server
+sudo systemctl stop pdnsd
+
+#Change the DNS server
+sudo sh -c 'echo nameserver 8.8.8.8 > /etc/resolv.conf'
+
+#Now activate openvpn
+if [[ $1 == "" ]]; then
+	abs_path="FinchVPN_FREE_01_Amsterdam_udp_53_linux.ovpn"
+else
+	abs_path=`readlink -e $1`
+fi
+cd /home/ronnie/OpenVPN
+echo $abs_path
+sudo openvpn $abs_path
