@@ -55,19 +55,19 @@ BCyan='\e[1;36m'        # Cyan
 BWhite='\e[1;37m'       # White
 Reset='\e[m'			# Reset Color
 
-#Settting the prompt 
-#PS1="\[${BGreen}\]\n\u@\h : [\[${BPurple}\]$(tty)\[${BGreen}\]]-[\[${BBlue}\]\w\[${BGreen}\]]\n\$ \[${Reset}\]"; 
+#Settting the prompt
+#PS1="\[${BGreen}\]\n\u@\h : [\[${BPurple}\]$(tty)\[${BGreen}\]]-[\[${BBlue}\]\w\[${BGreen}\]]\n\$ \[${Reset}\]";
 
 #Alternate prompt (Changes color with battery status)
 PROMPT_COMMAND='
-PS1="\[${BGreen}\]\n\u@\h : [\[${BPurple}\]$(tty)\[${BGreen}\]]-[\[${BBlue}\]\w\[${BGreen}\]]\n\$ \[${Reset}\]"; 
-if [ -f /sys/class/power_supply/BAT0/capacity ]; then 
-	CAP=`cat /sys/class/power_supply/BAT0/capacity`; 
-	if [[ $CAP -le 20 ]]; then 
+PS1="\[${BGreen}\]\n\u@\h : [\[${BPurple}\]$(tty)\[${BGreen}\]]-[\[${BBlue}\]\w\[${BGreen}\]]\n\$ \[${Reset}\]";
+if [ -f /sys/class/power_supply/BAT0/capacity ]; then
+	CAP=`cat /sys/class/power_supply/BAT0/capacity`;
+	if [[ $CAP -le 20 ]]; then
 		PS1="\[${BRed}\]\n\u@\h : [\[${BPurple}\]$(tty)\[${BRed}\]]-[\[${BBlue}\]\w\[${BRed}\]]\n\$ \[${Reset}\]";
-	elif [[ $CAP -le 40 ]]; then 
+	elif [[ $CAP -le 40 ]]; then
 		PS1="\[${BYellow}\]\n\u@\h : [\[${BPurple}\]$(tty)\[${BYellow}\]]-[\[${BBlue}\]\w\[${BYellow}\]]\n\$ \[${Reset}\]";
-	fi; 
+	fi;
 fi;'
 
 #Aliases
@@ -80,7 +80,7 @@ alias syslog="journalctl"
 alias hibernate="systemctl hibernate"
 alias android-studio="~/Android/android-studio/bin/studio.sh"
 
-#Aliasing sudo to allow use with aliases! 
+#Aliasing sudo to allow use with aliases!
 alias sudo="sudo "
 
 #I'm just too careless!!
