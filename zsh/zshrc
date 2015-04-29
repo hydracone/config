@@ -112,3 +112,21 @@ export XMODIFIERS=@im=ibus
 
 #Using a pacman wrapper
 alias pacman="pacmatic"
+
+#Resizing the serial termainal
+rsz() {
+	if [[ -t 0 && $# -eq 0 ]];then
+		local IFS='[;' escape geometry x y
+		print -n '\e7\e[r\e[999;999H\e[6n\e8'
+		read -sd R escape geometry
+		x=${geometry##*;} y=${geometry%%;*}
+		if [[ ${COLUMNS} -eq ${x} && ${LINES} -eq ${y} ]];then
+			print "${TERM} ${x}x${y}"
+		else
+			print "${COLUMNS}x${LINES} -> ${x}x${y}"
+			stty cols ${x} rows ${y}
+		fi
+	else
+		[[ -n ${commands[repo-elephant]} ]] && repo-elephant || print 'Usage: rsz'  ## Easter egg here :)
+	fi
+}
