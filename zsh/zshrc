@@ -1,19 +1,20 @@
-# Lines configured by zsh-newuser-install
-HISTFILE=~/.zsh_history
-HISTSIZE=1000
-SAVEHIST=1000
-setopt appendhistory autocd
-bindkey -e
-# End of lines configured by zsh-newuser-install
-# The following lines were added by compinstall
-zstyle :compinstall filename '/home/ronnie/.zshrc'
+# Zsh configuration for interactive shells
+setopt autocd correct
 
-#autoload -Uz compinit
-#compinit
-# End of lines added by compinstall
+#Key bindings
+bindkey -v
+bindkey kk vi-cmd-mode
+bindkey "^r" history-incremental-search-backward
 
 #Setting zsh configuration file directory
 ZCONFDIR=~/.zsh/
+
+#Setting history configurations
+HISTFILE=~/.zsh_history
+HISTSIZE=1000
+SAVEHIST=2000
+#histfindnodups doesn't seem to be working!
+setopt appendhistory histignoredups histexpiredupsfirst histfindnodups histreduceblanks histignorespace histnostore
 
 #Setting up color support for ls
 if [ -x /usr/bin/dircolors ]; then
@@ -24,9 +25,12 @@ fi
 autoload -U colors && colors
 source $ZCONFDIR/zsh-prompt.zsh
 
+#Setting completion support
+autoload -U compinit && compinit
+
 #Setting PATH
 #	typeset -U is used to ensure unique entries in the
-#	path array. The path array automatically fills up 
+#	path array. The path array automatically fills up
 #	the PATH parameter.
 typeset -U path
 path=($path ~/.local/bin ~/Android/sdk/tools ~/Android/sdk/platform-tools)
@@ -46,7 +50,7 @@ alias syslog="journalctl"
 alias hibernate="systemctl hibernate"
 alias android-studio="~/Android/android-studio/bin/studio.sh"
 
-#Aliasing sudo to allow use with aliases! 
+#Aliasing sudo to allow use with aliases!
 alias sudo="sudo "
 
 #I'm just too careless!!
@@ -69,7 +73,7 @@ alias rpilog="ssh ronnie@RonniePi.local"
 export EDITOR=vim
 
 #Setting the build directory for AUR packages
-#export BUILDDIR=~/Builds/aur
+export BUILDDIR=~/Builds/aur
 
 #Setting colored man pages
 man() {
@@ -83,3 +87,28 @@ man() {
 	LESS_TERMCAP_us=$'\e[1;32m' \
 	man "$@"
 }
+
+#Setting up KDEDIRS for local installation tree
+ksetup() {
+	export KDEDIRS=/home/ronnie/Builds/kde:$(kde4-config --prefix);
+	kbuildsycoca4 &> /dev/null;
+}
+
+#Function to generated random strings
+# Pass length of string as argument
+genpasswd() {
+	local l=$1
+	[[ "$l" == "" ]] && l=16
+	tr -dc "A-Za-z0-9_!@#$%^&*()-+=" < /dev/urandom | head -c ${l} | xargs
+}
+
+#Changing Default DNS
+alias dc="sudo sh -c 'echo nameserver 8.8.8.8 > /etc/resolv.conf'"
+
+# Activating the input method editor when X launched using a Display Manager
+export GTK_IM_MODULE=ibus
+export QT_IM_MODULE=ibus
+export XMODIFIERS=@im=ibus
+
+#Using a pacman wrapper
+alias pacman="pacmatic"
