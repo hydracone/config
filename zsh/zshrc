@@ -130,3 +130,9 @@ rsz() {
 		[[ -n ${commands[repo-elephant]} ]] && repo-elephant || print 'Usage: rsz'  ## Easter egg here :)
 	fi
 }
+
+#Resizing the serial terminal
+tty | grep -q "ttyS"
+if [[ $? -eq 0 ]]; then
+	rsz
+fi
