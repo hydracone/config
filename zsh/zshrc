@@ -135,4 +135,5 @@ rsz() {
 tty | grep -q "ttyS"
 if [[ $? -eq 0 ]]; then
 	rsz
+	export TERM=xterm-256color
 fi
