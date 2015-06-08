@@ -1,9 +1,10 @@
 [Desktop Entry]
 Encoding=UTF-8
-Name=IBus (KIMPanel)
+Name=IBus Daemon 
 GenericName=Input Method Framework
 Comment=Start IBus Input Method Framework
-Exec=ibus-daemon --xim --panel=/usr/lib/kimpanel-ibus-panel
+#Exec=ibus-daemon --xim --panel=/usr/lib/kimpanel-ibus-panel
+Exec=ibus-daemon -drx
 Icon=ibus
 Terminal=false
 Type=Application

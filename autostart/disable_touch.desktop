@@ -1,7 +1,7 @@
 [Desktop Entry]
-Type=Application
-Exec=/home/ronnie/.local/bin/disable_touch
-Hidden=false
-X-GNOME-Autostart-enabled=true
-Name=Disable TouchPad
 Comment=Disabling TouchPad on Boot
+Exec=/home/ronnie/.local/bin/disable_touch
+Hidden=true
+Name=Disable TouchPad
+Type=Application
+X-GNOME-Autostart-enabled=true
