@@ -1,5 +1,6 @@
 # Activating the input method editor when X launched using a Display Manager
 # Should probably remove the IM references from bashrc
-export GTK_IM_MODULE=fcitx
-export QT_IM_MODULE=fcitx
-export XMODIFIERS=@im=fcitx
+export GTK_IM_MODULE=ibus
+export QT_IM_MODULE=ibus
+export XMODIFIERS=@im=ibus
+#ibus-daemon -drx

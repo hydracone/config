@@ -33,7 +33,7 @@ autoload -U compinit && compinit
 #	path array. The path array automatically fills up
 #	the PATH parameter.
 typeset -U path
-path=($path ~/.local/bin ~/Android/sdk/tools ~/Android/sdk/platform-tools)
+path=($path ~/.local/bin ~/Android/android-sdk/tools ~/Android/android-sdk/platform-tools)
 
 #Setting pkgfile's "command-not-found" handler
 if [[ -x /bin/pkgfile ]]; then
@@ -59,6 +59,9 @@ alias rm="rm -i"
 #Use this to enable and disable the touchpad
 alias et="xinput --enable 'SynPS/2 Synaptics TouchPad'"
 alias dt="xinput --disable 'SynPS/2 Synaptics TouchPad'"
+
+# Allowing CoW when copying files
+alias cp="cp --reflink=auto"
 
 #Setting the default libvirt URI
 export LIBVIRT_DEFAULT_URI=qemu:///system
@@ -109,9 +112,6 @@ alias dc="sudo sh -c 'echo nameserver 8.8.8.8 > /etc/resolv.conf'"
 export GTK_IM_MODULE=ibus
 export QT_IM_MODULE=ibus
 export XMODIFIERS=@im=ibus
-
-#Using a pacman wrapper
-alias pacman="pacmatic"
 
 #Resizing the serial termainal
 rsz() {
