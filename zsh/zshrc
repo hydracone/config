@@ -76,7 +76,7 @@ alias rpilog="ssh ronnie@RonniePi.local"
 export EDITOR=vim
 
 #Setting the build directory for AUR packages
-export BUILDDIR=~/Builds/aur
+#export BUILDDIR=~/Builds/aur
 
 #Setting colored man pages
 man() {
