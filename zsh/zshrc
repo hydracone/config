@@ -72,6 +72,9 @@ alias mu="reflector --verbose -l 20 -p http --sort rate --save /etc/pacman.d/mir
 #Raspberry Pi SSH Login
 alias rpilog="ssh ronnie@RonniePi.local"
 
+#Starting and shutting down home server
+alias slb="wol 00:26:18:8b:9f:ff"
+alias polb="ssh -t ronnie@lenobox.local 'sudo poweroff'"
 #Setting default editor
 export EDITOR=vim
 
